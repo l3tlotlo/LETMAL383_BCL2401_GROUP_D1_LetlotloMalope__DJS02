@@ -6,35 +6,26 @@ form.addEventListener("submit", (event) => {
   const entries = new FormData(event.target);
   const { dividend, divider } = Object.fromEntries(entries);
 
-   // validation for empty inputs
+   // Checking ifthere are values entered in the fields
   if (!dividend || !divider){
-    result.innerText = "Division not performed. Both values are required in inputs. Try again"
+    result.innerText = "Division not performed. Both values are required in inputs. Try again" //Error message
     return;
     
   }
   // validation for division by zero
   if  (parseInt(divider) === 0) {
-    result.innerText = "Division not performed. Invalid number provided. Try again";
-    console.error("Division by zero error: ", new Error().stack);
+    result.innerText = "Division not performed. Invalid number provided. Try again";//Error message 
+    console.error("Division by zero error: ", new Error().stack);//Message displayed in console
     return; 
   }
 
-  function showError(message) {
-    // Log error message with stack trace
-    console.error("Error:", message, new Error().stack);
-    // Display critical error message directly on the document
-    document.write("Something critical went wrong. Please reload the page");
-    // Add critical-error class to the body element
-    document.body.classList.add('critical-error');
-}
-
-// Check if either dividend or divider is not a number
-if (isNaN(dividend) || isNaN(divider)){
-    // Call showError function with custom message
-    showError("Invalid number provided");
-    // Exit function
+  //Checking if inputs are not numbers
+  if (isNaN(dividend) || isNaN(divider)){   
+    document.write( "Something critical went wrong. Please reload the page");//Error message to be shown on browser
+    console.error("Error: Invalid number provided",new Error().stack) //Displays the error message in the console
+    document.body.classList.add('.critical-error');
     return;
-}
-
+  }
+//Function to do calculation
   result.innerText = Math.floor(dividend / divider);
 });
